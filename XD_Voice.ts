@@ -54,7 +54,7 @@ namespace XD_Voice{
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function playByName():void{
-        let na = [1, 1];
+        let na:number[] = [1, 1];
         sendPackage(0xF, 0, na, 2);
     }
 
