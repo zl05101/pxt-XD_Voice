@@ -4,7 +4,7 @@
 * http://www.micropython.org.cn
 */
 
-//% weight=20 color=#0855AA icon="\uf055" block="心点语音"
+//% weight=20 color=#0855AA icon="\uf055" block="心点语音模块"
 namespace XD_Voice{
     let volume = 30;
     let w_buf = pins.createBuffer(64);
@@ -52,10 +52,9 @@ namespace XD_Voice{
 
     /**
      * 语音模块播放
-     * @param folder 文件夹名
-     * @param file   文件名
+     * @param list 文件名组合
      */
-    //% blockId="XD_Voice_play" block="语音模块播放文件 数组 $list"
+    //% blockId="XD_Voice_play" block="语音模块播放 文件 $list"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function play(list:number[]):void{
