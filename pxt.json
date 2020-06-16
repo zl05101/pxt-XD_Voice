@@ -1,0 +1,17 @@
+{
+    "name": "pxt-XD_Voice",
+    "version": "0.0.1",
+    "description": "XD Voice drive for microbit",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "XD_Voice.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true
+}
