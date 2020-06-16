@@ -13,10 +13,10 @@ namespace XD_Voice{
      * @param tx serial tx pin
      * @param rx serial rx pin
      */
-    //% blockId="XD_Voice_begin" block="语音模块初始化串口引脚"
+    //% blockId="XD_Voice_begin" block="语音模块初始化串口引脚 TX $tx RX $rx"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function begin(tx:DigitalPin, rx:SerialPin):void{
+    export function begin(tx:SerialPin, rx:SerialPin):void{
         serial.redirect( tx, rx, BaudRate.BaudRate9600);
     }
 }
