@@ -7,7 +7,7 @@
 //% weight=20 color=#0855AA icon="\uf055" block="心点语音"
 namespace XD_Voice{
     let volume = 30;
-    let w_buf = pins.createBuffer(30);
+    let w_buf = pins.createBuffer(64);
 
     function sendPackage(cmd:number, feedBack:number, param:number[], paramLen:number):void{
         w_buf[0] = 0x7E;
@@ -29,7 +29,13 @@ namespace XD_Voice{
         dataLen += paramLen;
         w_buf[2] = dataLen - 1;
         w_buf[dataLen] = 0xEF;
-        serial.writeBuffer(w_buf);
+        dataLen += 1;
+
+        let data_buf = pins.createBuffer(dataLen);
+        for(let i=0; i < dataLen; i++){
+            data_buf[i] = w_buf[i];
+        }
+        serial.writeBuffer(data_buf);
     }
 
     /**
@@ -49,11 +55,15 @@ namespace XD_Voice{
      * @param folder 文件夹名
      * @param file   文件名
      */
-    //% blockId="XD_Voice_play" block="语音模块播放文件 $list"
+    //% blockId="XD_Voice_play" block="语音模块播放文件 数组 $list"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function play(list:number[]):void{
-        sendPackage(0xF, 0, list, 2);
+        if(list.length > 2){
+            sendPackage(0x21, 0xFF, list, list.length);
+        }else{
+            sendPackage(0xF, 0, list, list.length);
+        }
     }
 
 }
