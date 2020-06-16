@@ -49,7 +49,7 @@ namespace XD_Voice{
      * @param folder 文件夹名
      * @param file   文件名
      */
-    //% blockId="XD_Voice_play" block="语音模块播放单个文件"
+    //% blockId="XD_Voice_play" block="语音模块播放文件 $list"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function play(list:number[]):void{
