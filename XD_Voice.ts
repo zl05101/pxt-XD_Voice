@@ -42,7 +42,7 @@ namespace XD_Voice{
      * 音量设置
      * @param vol
      */
-    //% blockId="XD_Voice_volumeSet" block="音量设置 $vol=30"
+    //% blockId="XD_Voice_volumeSet" block="音量设置 $vol"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function volumeSet(vol:number):void{
@@ -170,7 +170,7 @@ namespace XD_Voice{
      * @param tx serial tx pin
      * @param rx serial rx pin
      */
-    //% blockId="XD_Voice_begin" block="语音模块初始化串口引脚 TX $tx=P0 RX $rx=P1"
+    //% blockId="XD_Voice_begin" block="语音模块初始化串口引脚 TX $tx RX $rx"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function begin(tx:SerialPin, rx:SerialPin):void{
