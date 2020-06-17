@@ -42,7 +42,7 @@ namespace XD_Voice{
      * 音量设置
      * @param vol
      */
-    //% blockId="XD_Voice_volumeSet" block="音量设置 $vol"
+    //% blockId="XD_Voice_volumeSet" block="设置音量为 $vol"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function volumeSet(vol:number):void{
@@ -131,7 +131,7 @@ namespace XD_Voice{
      * 播放忙
      * @param vol
      */
-    //% blockId="XD_Voice_busy" block="播放忙"
+    //% blockId="XD_Voice_busy" block="正在播放中"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function busy():boolean{
@@ -154,7 +154,7 @@ namespace XD_Voice{
      * 语音模块播放
      * @param list 文件名组合
      */
-    //% blockId="XD_Voice_play" block="语音模块播放 文件 $list"
+    //% blockId="XD_Voice_play" block="播放文件 $list"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function play(list:number[]):void{
@@ -170,7 +170,7 @@ namespace XD_Voice{
      * @param tx serial tx pin
      * @param rx serial rx pin
      */
-    //% blockId="XD_Voice_begin" block="语音模块初始化串口引脚 TX $tx RX $rx"
+    //% blockId="XD_Voice_begin" block="设置串口引脚 TX $tx RX $rx"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function begin(tx:SerialPin, rx:SerialPin):void{
