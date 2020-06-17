@@ -157,7 +157,7 @@ namespace XD_Voice{
     //% blockId="XD_Voice_play" block="语音模块播放 文件 $list"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function play(list:number[]):void{
+    export function play(list:number[]=[1,1]):void{
         if(list.length > 2){
             sendPackage(0x21, 0xFF, list, list.length);
         }else{
@@ -173,7 +173,7 @@ namespace XD_Voice{
     //% blockId="XD_Voice_begin" block="语音模块初始化串口引脚 TX $tx RX $rx"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function begin(tx:SerialPin, rx:SerialPin):void{
+    export function begin(tx:SerialPin=P15, rx:SerialPin=P16):void{
         serial.redirect( tx, rx, BaudRate.BaudRate9600);
     }
 }
