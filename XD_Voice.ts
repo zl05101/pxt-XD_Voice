@@ -38,43 +38,81 @@ namespace XD_Voice{
         serial.writeBuffer(data_buf);
     }
 
-    /**
-     * 语音模块初始化串口引脚
-     * @param tx serial tx pin
-     * @param rx serial rx pin
-     */
-    //% blockId="XD_Voice_begin" block="设置串口引脚 TX $tx RX $rx"
-    //% weight=70 blockGap=8
-    //% parts=XD_Vocie trackArgs=0
-    export function begin(tx:SerialPin, rx:SerialPin):void{
-        serial.redirect( tx, rx, BaudRate.BaudRate9600);
+    function checkStatus():void{
+        let temp:number[] = [0x0, 0x0];
+        sendPackage(0x42, 0, temp, temp.length);
     }
 
     /**
-     * 语音模块播放
-     * @param list 文件名组合
-     */
-    //% blockId="XD_Voice_play" block="播放文件 $list"
-    //% weight=70 blockGap=8
-    //% parts=XD_Vocie trackArgs=0
-    export function play(list:number[]):void{
-        if(list.length > 2){
-            sendPackage(0x21, 0xFF, list, list.length);
-        }else{
-            sendPackage(0xF, 0, list, list.length);
-        }
-    }
-
-    /**
-     * 复位
+     * 播放上一曲
      * @param vol
      */
-    //% blockId="XD_Voice_reset" block="复位"
+    //% blockId="XD_Voice_lastSong" block="播放上一曲"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function reset():void{
+    export function playLastSong():void{
         let temp:number[] = [0x0, 0x0];
-        sendPackage(0x0C, 0, temp, temp.length);
+        sendPackage(0x02, 0, temp, temp.length);
+    }
+
+    /**
+     * 播放下一曲
+     * @param vol
+     */
+    //% blockId="XD_Voice_nextSong" block="播放下一曲"
+    //% weight=70 blockGap=8
+    //% parts=XD_Vocie trackArgs=0
+    export function playNextSong():void{
+        let temp:number[] = [0x0, 0x0];
+        sendPackage(0x01, 0, temp, temp.length);
+    }
+
+    /**
+     * 音量设置
+     * @param vol
+     */
+    //% blockId="XD_Voice_volumeSet" block="设置音量为 $vol"
+    //% weight=70 blockGap=8
+    //% parts=XD_Vocie trackArgs=0
+    export function volumeSet(vol:number):void{
+        volume = vol
+        if (volume > 30){
+            volume = 30
+        }
+        if (volume < 0){
+            volume = 0
+        }
+        let temp:number[] = [0x0, 0x0];
+        temp[1] = volume;
+        sendPackage(0x6, 0, temp, temp.length);
+    }
+
+    /**
+     * 音量减小
+     * @param vol
+     */
+    //% blockId="XD_Voice_volumeDown" block="音量减小"
+    //% weight=70 blockGap=8
+    //% parts=XD_Vocie trackArgs=0
+    export function volumeDown():void{
+    if (volume > 0){
+            volume--;
+        }
+        volumeSet(volume);
+    }
+
+    /**
+     * 音量增大
+     * @param vol
+     */
+    //% blockId="XD_Voice_volumeUp" block="音量增大"
+    //% weight=70 blockGap=8
+    //% parts=XD_Vocie trackArgs=0
+    export function volumeUp():void{
+        if (volume < 30){
+            volume++;
+        }
+        volumeSet(volume);
     }
 
     /**
@@ -101,80 +139,43 @@ namespace XD_Voice{
     }
 
     /**
-     * 音量增大
+     * 复位
      * @param vol
      */
-    //% blockId="XD_Voice_volumeUp" block="音量增大"
+    //% blockId="XD_Voice_reset" block="复位"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function volumeUp():void{
-        if (volume < 30){
-            volume++;
-        }
-        volumeSet(volume);
+    export function reset():void{
+        let temp:number[] = [0x0, 0x0];
+        sendPackage(0x0C, 0, temp, temp.length);
     }
 
     /**
-     * 音量减小
-     * @param vol
+     * 语音模块播放
+     * @param list 文件名组合
      */
-    //% blockId="XD_Voice_volumeDown" block="音量减小"
+    //% blockId="XD_Voice_play" block="播放文件 $list"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function volumeDown():void{
-    if (volume > 0){
-            volume--;
+    export function play(list:number[]):void{
+        if(list.length > 2){
+            sendPackage(0x21, 0xFF, list, list.length);
+        }else{
+            sendPackage(0xF, 0, list, list.length);
         }
-        volumeSet(volume);
     }
 
     /**
-     * 音量设置
-     * @param vol
+     * 语音模块初始化串口引脚
+     * @param tx serial tx pin
+     * @param rx serial rx pin
      */
-    //% blockId="XD_Voice_volumeSet" block="设置音量为 $vol"
+    //% blockId="XD_Voice_begin" block="设置串口引脚 TX $tx RX $rx"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function volumeSet(vol:number):void{
-        volume = vol
-        if (volume > 30){
-            volume = 30
-        }
-        if (volume < 0){
-            volume = 0
-        }
-        let temp:number[] = [0x0, 0x0];
-        temp[1] = volume;
-        sendPackage(0x6, 0, temp, temp.length);
+    export function begin(tx:SerialPin, rx:SerialPin):void{
+        serial.redirect( tx, rx, BaudRate.BaudRate9600);
     }
 
-    /**
-     * 播放下一曲
-     * @param vol
-     */
-    //% blockId="XD_Voice_nextSong" block="播放下一曲"
-    //% weight=70 blockGap=8
-    //% parts=XD_Vocie trackArgs=0
-    export function playNextSong():void{
-        let temp:number[] = [0x0, 0x0];
-        sendPackage(0x01, 0, temp, temp.length);
-    }
-
-    /**
-     * 播放上一曲
-     * @param vol
-     */
-    //% blockId="XD_Voice_lastSong" block="播放上一曲"
-    //% weight=70 blockGap=8
-    //% parts=XD_Vocie trackArgs=0
-    export function playLastSong():void{
-        let temp:number[] = [0x0, 0x0];
-        sendPackage(0x02, 0, temp, temp.length);
-    }
-
-    function checkStatus():void{
-        let temp:number[] = [0x0, 0x0];
-        sendPackage(0x42, 0, temp, temp.length);
-    }
 }
 
