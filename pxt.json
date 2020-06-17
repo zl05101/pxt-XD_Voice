@@ -6,7 +6,7 @@
     "dependencies": {
         "core": "*"
     },
-    "icon": "icon.png",
+    "icon": "voice.png",
     "files": [
         "README.md",
         "XD_Voice.ts"
