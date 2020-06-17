@@ -39,23 +39,65 @@ namespace XD_Voice{
     }
 
     /**
-     * 音量设置
-     * @param vol
+     * 语音模块初始化串口引脚
+     * @param tx serial tx pin
+     * @param rx serial rx pin
      */
-    //% blockId="XD_Voice_volumeSet" block="设置音量为 $vol"
+    //% blockId="XD_Voice_begin" block="设置串口引脚 TX $tx RX $rx"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function volumeSet(vol:number):void{
-        volume = vol
-        if (volume > 30){
-            volume = 30
+    export function begin(tx:SerialPin, rx:SerialPin):void{
+        serial.redirect( tx, rx, BaudRate.BaudRate9600);
+    }
+
+    /**
+     * 语音模块播放
+     * @param list 文件名组合
+     */
+    //% blockId="XD_Voice_play" block="播放文件 $list"
+    //% weight=70 blockGap=8
+    //% parts=XD_Vocie trackArgs=0
+    export function play(list:number[]):void{
+        if(list.length > 2){
+            sendPackage(0x21, 0xFF, list, list.length);
+        }else{
+            sendPackage(0xF, 0, list, list.length);
         }
-        if (volume < 0){
-            volume = 0
-        }
+    }
+
+    /**
+     * 复位
+     * @param vol
+     */
+    //% blockId="XD_Voice_reset" block="复位"
+    //% weight=70 blockGap=8
+    //% parts=XD_Vocie trackArgs=0
+    export function reset():void{
         let temp:number[] = [0x0, 0x0];
-        temp[1] = volume;
-        sendPackage(0x6, 0, temp, temp.length);
+        sendPackage(0x0C, 0, temp, temp.length);
+    }
+
+    /**
+     * 播放忙
+     * @param vol
+     */
+    //% blockId="XD_Voice_busy" block="正在播放中"
+    //% weight=70 blockGap=8
+    //% parts=XD_Vocie trackArgs=0
+    export function busy():boolean{
+        let r_buf = pins.createBuffer(10);
+        pause(100);
+        checkStatus();
+        pause(100);
+        r_buf = serial.readBuffer(10);
+        if (r_buf[0] == 0x7E && r_buf[1] == 0xFF && r_buf[2] == 0x06 && r_buf[3] == 0x42){
+            if(r_buf[6] == 0x1)
+                return true
+            else
+                return false
+        } else{
+            return true
+        }
     }
 
     /**
@@ -87,15 +129,23 @@ namespace XD_Voice{
     }
 
     /**
-     * 复位
+     * 音量设置
      * @param vol
      */
-    //% blockId="XD_Voice_reset" block="复位"
+    //% blockId="XD_Voice_volumeSet" block="设置音量为 $vol"
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
-    export function reset():void{
+    export function volumeSet(vol:number):void{
+        volume = vol
+        if (volume > 30){
+            volume = 30
+        }
+        if (volume < 0){
+            volume = 0
+        }
         let temp:number[] = [0x0, 0x0];
-        sendPackage(0x0C, 0, temp, temp.length);
+        temp[1] = volume;
+        sendPackage(0x6, 0, temp, temp.length);
     }
 
     /**
@@ -125,56 +175,6 @@ namespace XD_Voice{
     function checkStatus():void{
         let temp:number[] = [0x0, 0x0];
         sendPackage(0x42, 0, temp, temp.length);
-    }
-
-    /**
-     * 播放忙
-     * @param vol
-     */
-    //% blockId="XD_Voice_busy" block="正在播放中"
-    //% weight=70 blockGap=8
-    //% parts=XD_Vocie trackArgs=0
-    export function busy():boolean{
-        let r_buf = pins.createBuffer(10);
-        pause(100);
-        checkStatus();
-        pause(100);
-        r_buf = serial.readBuffer(10);
-        if (r_buf[0] == 0x7E && r_buf[1] == 0xFF && r_buf[2] == 0x06 && r_buf[3] == 0x42){
-            if(r_buf[6] == 0x1)
-                return true
-            else
-                return false
-        } else{
-            return true
-        }
-    }
-
-    /**
-     * 语音模块播放
-     * @param list 文件名组合
-     */
-    //% blockId="XD_Voice_play" block="播放文件 $list"
-    //% weight=70 blockGap=8
-    //% parts=XD_Vocie trackArgs=0
-    export function play(list:number[]):void{
-        if(list.length > 2){
-            sendPackage(0x21, 0xFF, list, list.length);
-        }else{
-            sendPackage(0xF, 0, list, list.length);
-        }
-    }
-
-    /**
-     * 语音模块初始化串口引脚
-     * @param tx serial tx pin
-     * @param rx serial rx pin
-     */
-    //% blockId="XD_Voice_begin" block="设置串口引脚 TX $tx RX $rx"
-    //% weight=70 blockGap=8
-    //% parts=XD_Vocie trackArgs=0
-    export function begin(tx:SerialPin, rx:SerialPin):void{
-        serial.redirect( tx, rx, BaudRate.BaudRate9600);
     }
 }
 
