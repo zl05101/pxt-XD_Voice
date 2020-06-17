@@ -171,7 +171,7 @@ namespace XD_Voice{
      * @param rx serial rx pin
      */
     //% blockId="XD_Voice_begin" block="语音模块初始化串口引脚 TX $tx RX $rx"
-    //% weight=70 blockGap=8
+    //% weight=100 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function begin(tx:SerialPin=P15, rx:SerialPin=P16):void{
         serial.redirect( tx, rx, BaudRate.BaudRate9600);
