@@ -1,7 +1,7 @@
 {
     "name": "pxt-XD_Voice",
     "version": "0.0.1",
-    "description": "XD Voice drive for microbit",
+    "description": "xindkj voice module drive for microbit",
     "license": "MIT",
     "dependencies": {
         "core": "*"
