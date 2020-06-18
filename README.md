@@ -43,7 +43,7 @@ XD_Voice.begin(SerialPin.P15, SerialPin.P16)
 - **volumeSet(vol:number)**  
 设置音量
 
-- vol: 音量值，范围:0-30
+  - vol: 音量值，范围:0-30
 
 - **reset()**  
 复位
