@@ -4,7 +4,7 @@
 * http://www.micropython.org.cn
 */
 
-//% weight=30 color=#0855AA icon="\uf080" block="语音"
+//% weight=30 color=#0855AA icon="\uf001" block="语音"
 namespace XD_Voice{
     let volume = 30;
     let w_buf = pins.createBuffer(64);

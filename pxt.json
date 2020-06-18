@@ -6,7 +6,6 @@
     "dependencies": {
         "core": "*"
     },
-    "icon": "voice.png",
     "files": [
         "README.md",
         "XD_Voice.ts"
@@ -14,5 +13,7 @@
     "testFiles": [
         "test.ts"
     ],
-    "public": true
+    "public": true,
+    "preferredEditor": "tsprj",
+    "icon": "voice.png"
 }
