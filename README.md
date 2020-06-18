@@ -2,9 +2,6 @@
 
 makecode xindkj voice module extension for micro:bit.  
 
-Part of the drive base on fizban99's microbit OLED driver:  
-https://github.com/fizban99/microbit_ssd1306  
-
 Author: lz
 Date:   2020.Mar  
 
