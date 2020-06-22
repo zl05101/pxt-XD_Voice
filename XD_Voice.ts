@@ -172,8 +172,8 @@ namespace XD_Voice{
      * @param rx serial rx pin
      */
     //% blockId="XD_Voice_begin" block="设置串口引脚 TX $tx RX $rx"
-    //% tx.def1=P15
-    //% rx.def1=P16
+    //% tx.def1=SerialPin.P15
+    //% rx.def1=SerialPin.P16
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function begin(tx:SerialPin, rx:SerialPin):void{
