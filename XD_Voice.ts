@@ -155,6 +155,7 @@ namespace XD_Voice{
      * @param list 文件名组合
      */
     //% blockId="XD_Voice_play" block="播放文件 $list"
+    //% list.def1=[1,1]
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function play(list:number[]):void{
@@ -171,6 +172,8 @@ namespace XD_Voice{
      * @param rx serial rx pin
      */
     //% blockId="XD_Voice_begin" block="设置串口引脚 TX $tx RX $rx"
+    //% tx.def1=P15
+    //% rx.def1=P16
     //% weight=70 blockGap=8
     //% parts=XD_Vocie trackArgs=0
     export function begin(tx:SerialPin, rx:SerialPin):void{
